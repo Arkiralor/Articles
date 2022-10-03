@@ -17,6 +17,6 @@ class UserRegex:
     ## Normal 10-digit phone number ((STD)(AREA)(SUBSCRIBER))
     PHONE_REGEX = re.compile(r"^([\s.-])?(\+\d{1,2}\s)?\(?\d{3}\)?([\s.-])?\d{3}([\s.-])?\d{4}$")
 
-    # >=1 UC char, >=1 LC char, >=1 NUM char >=[@, $ ,!, %, *, ?, &]; between 8 to 15 chars; confirmed on 'https://regex101.com/'
+    # >=1 UC char, >=1 LC char, >=1 NUM char >=[@, $ ,!, %, *, ?, &]; between 8 to 32 chars; confirmed on 'https://regex101.com/'
     PASSWORD_REGEX = re.compile(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$')
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$')

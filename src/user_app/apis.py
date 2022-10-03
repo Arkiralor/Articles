@@ -9,6 +9,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user_app.api_helpers import UserAccountHelpers
 from user_app.serializers import UserGeneralSerializer
+from user_app import logger
 
 
 class UserAccountCreationAPI(APIView):
@@ -124,6 +125,7 @@ class AdminUserBasicAPI(APIView):
     permission_classes = (IsAdminUser,)
 
     def get(self, request: Request, *args, **kwargs):
+        logger.info(f"hit by user {request.user.email}")
         page = request.query_params.get("page")
         resp = UserAccountHelpers.search_instances(identifier="", page=page)
 

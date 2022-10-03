@@ -15,6 +15,8 @@ from user_app.models import UserAccount
 from user_app.model_choices import UserAccountChoice
 from user_app.serializers import UserAccountSerializer, UserRegisterSerializer, UserGeneralSerializer
 
+from user_app import logger
+
 
 class UserAccountHelpers(TemplateModelUtils):
     model = UserAccount
@@ -48,10 +50,9 @@ class UserAccountHelpers(TemplateModelUtils):
             | Q(email__icontains=identifier)
             | Q(mobile__icontains=identifier)
             | Q(slug__icontains=identifier)
-        )
+        ).distinct().order_by("email")
 
         paginated = Paginator(qryset, ITEMS_PER_PAGE).get_page(page)
-
         serialized = cls.op_serializer(paginated, many=True).data
         return serialized
 
