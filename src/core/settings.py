@@ -1,5 +1,6 @@
 from pathlib import Path
 from os import environ, path, makedirs
+from datetime import timedelta
 
 from core.apps import DEFAULT_APPS, THIRD_PARTY_APPS, CUSTOM_APPS
 from core.middleware import DEFAULT_MIDDLEWARE, THIRD_PARTY_MIDDLEWARE, CUSTOM_MIDDLEWARE
@@ -53,6 +54,20 @@ DATABASES = {
     }
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+    ## prithoo: We WANT this to break if it cannot find the algorithm.
+    'ALGORITHM': environ['JWT_ALGORITHM'],
+    'SIGNING_KEY': SECRET_KEY,
+}
+if ENV_TYPE == "dev":
+    SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"] = timedelta(hours=8)
+    SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"] = timedelta(days=30)
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -68,8 +83,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # )
+}
+
+
 ## Create directory for logs
-LOG_DIR = path.join(BASE_DIR.parent, 'logs/')
+LOG_DIR = path.join(BASE_DIR.parent, 'BackendLogs/')
 if not path.exists(LOG_DIR):
     makedirs(LOG_DIR)
 ENV_LOG_FILE = path.join(LOG_DIR, f'{ENV_TYPE}_root.log')
@@ -121,13 +143,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# AUTH_USER_MODEL = 'userapp.User'
+AUTH_USER_MODEL = 'user_app.UserAccount'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = environ.get('CORS_ORIGIN_WHITELIST', '').split(', ')
 
 
 OTP_ATTEMPT_LIMIT = int(environ.get('OTP_ATTEMPT_LIMIT', 10000))
 OTP_ATTEMPT_TIMEOUT = int(environ.get('OTP_ATTEMPT_TIMEOUT', 0))
+OTP_EXPIRY_MINUTES = int(environ.get("OTP_EXPIRY_MINUTES", 10))
 
 ITEMS_PER_PAGE = 10
 

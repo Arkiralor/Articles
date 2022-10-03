@@ -16,11 +16,14 @@ django==4.1.1
     # via
     #   -r requirements.in
     #   django-cors-headers
+    #   django-extensions
     #   djangorestframework
     #   djangorestframework-simplejwt
 django-cors-headers==3.13.0
     # via -r requirements.in
 django-dotenv==1.4.2
+    # via -r requirements.in
+django-extensions==3.2.1
     # via -r requirements.in
 djangorestframework==3.14.0
     # via

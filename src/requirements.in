@@ -2,6 +2,7 @@ autopep8
 django
 djangorestframework
 django-cors-headers
+django-extensions
 django-dotenv
 djangorestframework-simplejwt
 psycopg2-binary

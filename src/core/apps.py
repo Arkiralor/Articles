@@ -8,8 +8,10 @@ DEFAULT_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
+    'django_extensions',
+    'rest_framework_simplejwt'
 ]
 CUSTOM_APPS = [
     'sample_app.apps.SampleAppConfig',
+    'user_app.apps.UserAppConfig'
 ]
