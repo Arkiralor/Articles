@@ -86,9 +86,9 @@ class FakeUser:
             "username": username,
             "email": f"{username}@gmail.com",
             "mobile": cls.create_fake_phone_number(),
-            "password": "IHavea50mmPrimeLens!"
+            "password": "Creator@admin1strator!"
         }
-        logger.info(f"{num if num else None}{'. ' if num else None}Creating fake user: {user_dict.get('email')} .")
+        logger.info(f"{num if num else ''}{'. ' if num else ''}Creating fake user: {user_dict.get('email')} .")
 
         resp = UserAccountHelpers.create_instance(data=user_dict)
         return resp

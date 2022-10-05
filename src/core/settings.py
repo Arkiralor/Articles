@@ -2,19 +2,17 @@ from pathlib import Path
 from os import environ, path, makedirs
 from datetime import timedelta
 
-from core.apps import DEFAULT_APPS, THIRD_PARTY_APPS, CUSTOM_APPS
-from core.middleware import DEFAULT_MIDDLEWARE, THIRD_PARTY_MIDDLEWARE, CUSTOM_MIDDLEWARE
+from core.installations.apps import DEFAULT_APPS, THIRD_PARTY_APPS, CUSTOM_APPS
+from core.installations.middleware import DEFAULT_MIDDLEWARE, THIRD_PARTY_MIDDLEWARE, CUSTOM_MIDDLEWARE
 
 ENV_TYPE = environ.get('ENV_TYPE', 'prod').lower()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = environ['SECRET_KEY']
 
+SECRET_KEY = environ['SECRET_KEY']
 DEBUG = eval(environ['DEBUG'])
 
-
 ALLOWED_HOSTS = environ['ALLOWED_HOSTS'].split(', ')
-
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 MIDDLEWARE = DEFAULT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE + CUSTOM_MIDDLEWARE
