@@ -1,4 +1,7 @@
 from django.db import models
+
+from ecommerce_app.models import Shop
+
 import uuid
 
 
@@ -18,7 +21,7 @@ class TemplateModel(models.Model):
 
 
 class TemplateModelUtils:
-    model:models.Model = None
+    model: models.Model = None
     op_serializer = None
     ip_serializer = None
 
@@ -44,4 +47,3 @@ class TemplateModelUtils:
     @classmethod
     def delete_instance(cls):
         pass
-
